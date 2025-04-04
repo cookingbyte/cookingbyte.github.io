@@ -209,6 +209,130 @@
             
 
   
+    <article id="post-哈希（散列）查找" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/02/17/%E5%93%88%E5%B8%8C%EF%BC%88%E6%95%A3%E5%88%97%EF%BC%89%E6%9F%A5%E6%89%BE/">哈希（散列）查找</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/02/17/%E5%93%88%E5%B8%8C%EF%BC%88%E6%95%A3%E5%88%97%EF%BC%89%E6%9F%A5%E6%89%BE/" class="archive-article-date">
+        <time datetime="2021-02-17T13:10:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-17</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h3 id="结构体定义部分"><a href="#结构体定义部分" class="headerlink" title="结构体定义部分"></a>结构体定义部分</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> *elem;<span class="comment">//数据元素储存的基本地址，动态分配</span></span><br><span class="line">    <span class="type">int</span> count;<span class="comment">//当前元素的个数</span></span><br><span class="line">&#125;HashTable;<span class="comment">//一次性名</span></span><br><span class="line"><span class="type">int</span> m = <span class="number">0</span>; <span class="comment">//散列表长</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化部分"><a href="#初始化部分" class="headerlink" title="初始化部分"></a>初始化部分</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Status <span class="title function_">InitHashTable</span><span class="params">( HashTable *H )</span></span><br><span class="line">&#123;</span><br><span class="line">    m = HASHSIZE;<span class="comment">//把m初始化为最大值</span></span><br><span class="line">    H-&gt;count = m;<span class="comment">//把计数器赋值为最大值</span></span><br><span class="line">    H-&gt;elem = (<span class="type">int</span> *)<span class="built_in">malloc</span>(m*<span class="keyword">sizeof</span>(<span class="type">int</span>));<span class="comment">//生成m*int那么大的内存</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; ++i)<span class="comment">//生成从0-最大值那么多的地址</span></span><br><span class="line">    &#123;</span><br><span class="line">        H-&gt;elem[i] = NULLKEY;<span class="comment">//给每个地址分配一个不太可能的值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>H-&gt;count 初始化成最大值</li>
+<li>动态生成m*int那大的内存地址</li>
+<li>把那些空地址都赋值一个不可能的值</li>
+</ul>
+</blockquote>
+<h3 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Hash</span><span class="params">( <span class="type">int</span> key )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> key%m; <span class="comment">//返回的就是你那个地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里以后可以改变他的规则</p>
+</blockquote>
+<h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InsertHash</span><span class="params">( HashTable *H,<span class="type">int</span> key )</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> addr = Hash(key);<span class="comment">//通过调用哈希函数来求地址</span></span><br><span class="line">    <span class="keyword">while</span>( H-&gt;elem[addr]!=NULLKEY )<span class="comment">//当那个内存地址上有值的时候继续循环往后找没有值的位置</span></span><br><span class="line">    &#123;</span><br><span class="line">        addr=(addr+<span class="number">1</span>)%m;<span class="comment">//m为表长</span></span><br><span class="line">    &#125;</span><br><span class="line">        H-&gt;elem[addr] = key;<span class="comment">//出来循环的话说明找到了！把key关键字成为那个位置上的元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>通过调用hash函数来获取那个地址</li>
+<li>弄一个循环 ♻️ 那个地址上有值的话就继续找下一个</li>
+<li>出来循环就说明找到了空位了，把那个key复制给那个空位</li>
+</ul>
+</blockquote>
+<h3 id="搜索🔍"><a href="#搜索🔍" class="headerlink" title="搜索🔍"></a>搜索🔍</h3>
+    
+    <a class="article-more-a" href="/2021/02/17/%E5%93%88%E5%B8%8C%EF%BC%88%E6%95%A3%E5%88%97%EF%BC%89%E6%9F%A5%E6%89%BE/#more">more >></a>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">查找算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/查找算法//" class="article-tag-list-link color5">查找算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/02/17/%E5%93%88%E5%B8%8C%EF%BC%88%E6%95%A3%E5%88%97%EF%BC%89%E6%9F%A5%E6%89%BE/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1278,111 +1402,6 @@
 
 
   
-    <article id="post-链表的添加" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/12/05/%E9%93%BE%E8%A1%A8%E7%9A%84%E6%B7%BB%E5%8A%A0/">链表的添加</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/12/05/%E9%93%BE%E8%A1%A8%E7%9A%84%E6%B7%BB%E5%8A%A0/" class="archive-article-date">
-        <time datetime="2020-12-05T12:55:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h3 id="链表的增加"><a href="#链表的增加" class="headerlink" title="链表的增加"></a>链表的增加</h3><p>核心代码讲解</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(t!=<span class="literal">NULL</span>)<span class="comment">//如果说没有达到尾，就不停止循环</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">//如果说t的下一个为空或者说t的下一个的data项大于当前这个的话就插入</span></span><br><span class="line">  	<span class="keyword">if</span>( t-&gt;next==<span class="literal">NULL</span> || t-&gt;next-&gt;data &gt; a)</span><br><span class="line">    &#123;</span><br><span class="line">      p = (<span class="keyword">struct</span> *node)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> node));<span class="comment">//动态生成一个获得给临时指针</span></span><br><span class="line">     	p-&gt;data = n;</span><br><span class="line">      p-&gt;next = t-&gt;next;</span><br><span class="line">      t-next = p;</span><br><span class="line">    &#125;</span><br><span class="line"> 	t =  t-&gt;next<span class="comment">//不断向后指</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>对于p-&gt;next &#x3D; t-&gt;next; 两行的解释如下<br>      t-next &#x3D; p;</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://imgchr.com/i/DOnmy6"><img src="https://s3.ax1x.com/2020/12/05/DOnmy6.md.png" alt="DOnmy6.md.png"></a></p>
-    
-    <a class="article-more-a" href="/2020/12/05/%E9%93%BE%E8%A1%A8%E7%9A%84%E6%B7%BB%E5%8A%A0/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/数据结构与算法//" class="article-tag-list-link color3">数据结构与算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/12/05/%E9%93%BE%E8%A1%A8%E7%9A%84%E6%B7%BB%E5%8A%A0/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/16/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/18/">Next &raquo;</a>
@@ -1556,15 +1575,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C语言理论部分--全集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JAVA基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C语言理论部分--全集</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1584,6 +1603,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工具方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">python数据分析</a>
               </li>
              
@@ -1596,11 +1619,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C语言编程题</a>
+                <a href="javascript:void(0)" class="js-tag color1">C语言错题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C语言错题</a>
+                <a href="javascript:void(0)" class="js-tag color2">C语言编程题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1704,11 +1727,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C语言理论部分自增自减运算符</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color5">C语言理论部分自增自减运算符</a>
               </li>
              
               <li class="article-tag-list-item">

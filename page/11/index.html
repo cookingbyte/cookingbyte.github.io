@@ -209,6 +209,112 @@
             
 
   
+    <article id="post-水仙花数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/05/12/%E6%B0%B4%E4%BB%99%E8%8A%B1%E6%95%B0/">水仙花数</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/05/12/%E6%B0%B4%E4%BB%99%E8%8A%B1%E6%95%B0/" class="archive-article-date">
+        <time datetime="2021-05-12T13:32:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-12</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>实验4-2-5 水仙花数 (20 分)</p>
+<p>水仙花数是指一个<em>N</em>位正整数（<em>N</em>≥3），它的每个位上的数字的<em>N</em>次幂之和等于它本身。例如：153&#x3D;13+53+33。 本题要求编写程序,计算所有<em>N</em>位水仙花数。</p>
+<h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式:"></a>输入格式:</h3><p>输入在一行中给出一个正整数<em>N</em>（3≤<em>N</em>≤7）。 </p>
+<h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式:"></a>输出格式:</h3><p>按递增顺序输出所有<em>N</em>位水仙花数，每个数字占一行。</p>
+<h3 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例:"></a>输入样例:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例:"></a>输出样例:</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">153</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">407</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="type">int</span> N;</span><br><span class="line">   <span class="comment">// scanf(&quot;%d&quot;, &amp;N);</span></span><br><span class="line">   N = <span class="number">3</span>;</span><br><span class="line">    <span class="comment">//假如3位数</span></span><br><span class="line">   <span class="comment">//从100-999</span></span><br><span class="line">  <span class="comment">//4 位数</span></span><br><span class="line">  <span class="comment">//1000 - 9999</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">  <span class="comment">//i 如何能根据N 得到那个100？</span></span><br><span class="line">  <span class="type">int</span> first = <span class="number">1</span>;</span><br><span class="line">  <span class="comment">//这一步是要得到那个区间端点值 --- (比如 N = 3  ---&gt; 100 - 1000)</span></span><br><span class="line">  <span class="keyword">while</span> ( i &lt; N ) &#123;</span><br><span class="line">    first*=<span class="number">10</span>;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;<span class="comment">//出来以后 first拿到了那个100 也就是区间的开始值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="type">int</span> w= first;<span class="comment">//作循环变量要用 每一轮要变化 所以要找个替身</span></span><br><span class="line">   <span class="keyword">while</span> ( w &lt; first *<span class="number">10</span> ) &#123;</span><br><span class="line">     <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">     <span class="type">int</span> t = w;</span><br><span class="line">       <span class="comment">//拆当前的每一位数</span></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">          <span class="type">int</span> d = t%<span class="number">10</span>;<span class="comment">//拿到个位</span></span><br><span class="line">          t/=<span class="number">10</span>;<span class="comment">//划去最后一位</span></span><br><span class="line">          <span class="type">int</span> k = <span class="number">1</span>;</span><br><span class="line">          <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">            </span><br><span class="line">          <span class="comment">//怎么把最后一位乘相应的次数？当N = 3 的时候意味着要乘2次d本身 d  *d*d</span></span><br><span class="line">          <span class="keyword">while</span> ( j  &lt;  N )</span><br><span class="line">          &#123;</span><br><span class="line">              k *= d;</span><br><span class="line">              j++;</span><br><span class="line">          &#125;</span><br><span class="line">            </span><br><span class="line">          sum += k;<span class="comment">//当前的每一位的三次方加到summ里面去</span></span><br><span class="line">            </span><br><span class="line">         &#125;<span class="keyword">while</span>( t &gt; <span class="number">0</span> );</span><br><span class="line">        </span><br><span class="line">         <span class="keyword">if</span>( w == sum )<span class="comment">//如果满足条件就输出</span></span><br><span class="line">         &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,w);</span><br><span class="line">         &#125;</span><br><span class="line">           </span><br><span class="line">        w++;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C语言编程题目</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C语言编程题//" class="article-tag-list-link color2">C语言编程题</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/05/12/%E6%B0%B4%E4%BB%99%E8%8A%B1%E6%95%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-求e的近似值" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1196,122 +1302,6 @@
 
 
   
-    <article id="post-特殊a串数列求和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/04/26/%E7%89%B9%E6%AE%8Aa%E4%B8%B2%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C/">特殊a串数列求和</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/04/26/%E7%89%B9%E6%AE%8Aa%E4%B8%B2%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C/" class="archive-article-date">
-        <time datetime="2021-04-26T13:19:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-26</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>实验4-1-7 特殊a串数列求和 (20 分)</p>
-<p>给定两个均不超过9的正整数<em>a</em>和<em>n</em>，要求编写程序求<em>a</em>+*a<strong>a*+*a</strong>a<strong>a*++⋯+*a</strong>a<em>⋯</em>a<em>（</em>n<em>个</em>a*）之和。</p>
-<h3 id="输入格式："><a href="#输入格式：" class="headerlink" title="输入格式："></a>输入格式：</h3><p>输入在一行中给出不超过9的正整数<em>a</em>和<em>n</em>。</p>
-<h3 id="输出格式："><a href="#输出格式：" class="headerlink" title="输出格式："></a>输出格式：</h3><p>在一行中按照“s &#x3D; 对应的和”的格式输出。</p>
-<h3 id="输入样例："><a href="#输入样例：" class="headerlink" title="输入样例："></a>输入样例：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2 3</span><br></pre></td></tr></table></figure>
-
-<h3 id="输出样例："><a href="#输出样例：" class="headerlink" title="输出样例："></a>输出样例：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = 246</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span>* argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">int</span> a,n;</span><br><span class="line">  <span class="type">int</span> item = <span class="number">0</span>,sum = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;a,&amp;n);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">   </span><br><span class="line">     item = a + item * <span class="number">10</span>;</span><br><span class="line">     sum+=item;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;s = %d\n&quot;</span>,sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>👇有过程！！</p>
-<p><a target="_blank" rel="noopener" href="https://www.helloimg.com/image/BUsLvT"><img src="https://www.helloimg.com/images/2021/04/26/BUsLvT.png" alt="BUsLvT.png"></a></p>
-<p>这种问题一般是找规律</p>
-<ul>
-<li>2 &#x3D; 2 + 0 * 10</li>
-<li>然后把结果值加到sum里面去</li>
-<li>等到下一轮的时候，只要用 上一次的结果值 * 10 + a 就🉑️。然后不断的利用sum的迭代算。</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C语言编程题目</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/C语言编程题//" class="article-tag-list-link color2">C语言编程题</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/04/26/%E7%89%B9%E6%AE%8Aa%E4%B8%B2%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
@@ -1485,15 +1475,15 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C语言理论部分--全集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JAVA基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C语言理论部分--全集</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1513,6 +1503,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">工具方法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">python数据分析</a>
               </li>
              
@@ -1525,11 +1519,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C语言编程题</a>
+                <a href="javascript:void(0)" class="js-tag color1">C语言错题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">C语言错题</a>
+                <a href="javascript:void(0)" class="js-tag color2">C语言编程题</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1633,11 +1627,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">C语言理论部分自增自减运算符</a>
+                <a href="javascript:void(0)" class="js-tag color3">数组</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">数组</a>
+                <a href="javascript:void(0)" class="js-tag color5">C语言理论部分自增自减运算符</a>
               </li>
              
               <li class="article-tag-list-item">
